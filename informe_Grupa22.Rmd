@@ -1,0 +1,45 @@
+---
+title: "TP1_Grupo22"
+author: "Rosario Recalt y Pilar Medela"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# Cargar los paquetes necesarios acá
+```
+
+```{r}
+# install.packages(readr)
+library(readr)
+vinos <- readr::read_csv("https://raw.githubusercontent.com/cienciadedatos/datos-de-miercoles/master/datos/2019/2019-06-12/vinos.csv")
+```
+
+
+## Introducción
+
+La base de vinos contiene diez variables y 129.971 casos. La misma contiene variables nominales, numéricas y ordianales. En función de ello, refiere a datos sobre el país, provincia y región de origen, el nombre del vino, el puntaje asignado al vino, la variedad y el título de la reseña. Los datos fueron exraídos de la Revista WineEnthusiast (http://www.winemag.com/?s=&drink_type=wine)
+
+
+
+## Exploración de los datos
+
+
+```{r}
+
+
+```
+
+
+
+```{r}
+# Cödigo de R acá 
+# Agregá más bloques según sea necesario
+```
+
+
+
+## Hipótesis
+
+
