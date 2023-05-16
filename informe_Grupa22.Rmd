@@ -33,8 +33,17 @@ View(vinos)
 
 ```
 
-Ahora que los tenemos podemos explorar la información al interior de las base
+Ahora que los tenemos podemos explorar la información al interior de las base, utilizamos dplyr
 
+```{r}
+library(dplyr)
+
+```
+Miramos que cuantos caoss son de Argentina
+
+```{r}
+filter(vinos,pais==Argentina)
+```
 
 
 
