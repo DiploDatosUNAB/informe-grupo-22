@@ -1,6 +1,6 @@
 ---
-title: "titulo"
-author: "nombres"
+title: "TP1_Grupo22"
+author: "Rosario Recalt y Pilar Medela"
 output: html_document
 ---
 
@@ -8,6 +8,12 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 # Cargar los paquetes necesarios acá
+```
+
+```{r}
+# install.packages(readr)
+library(readr)
+vinos <- readr::read_csv("https://raw.githubusercontent.com/cienciadedatos/datos-de-miercoles/master/datos/2019/2019-06-12/vinos.csv")
 ```
 
 
