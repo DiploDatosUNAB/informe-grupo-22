@@ -19,13 +19,16 @@ vinos <- readr::read_csv("https://raw.githubusercontent.com/cienciadedatos/datos
 
 ## Introducción
 
+La base de vinos contiene diez variables y 129.971 casos. La misma contiene variables nominales, numéricas y ordianales. En función de ello, refiere a datos sobre el país, provincia y región de origen, el nombre del vino, el puntaje asignado al vino, la variedad y el título de la reseña. Los datos fueron exraídos de la Revista WineEnthusiast (http://www.winemag.com/?s=&drink_type=wine)
+
 
 
 ## Exploración de los datos
 
 
 ```{r}
-# Código para cargar o leer los datos
+
+
 ```
 
 
