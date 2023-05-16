@@ -24,12 +24,17 @@ La base de vinos contiene diez variables para 129.971 casos. La variables de est
 
 
 ## Exploración de los datos
-
+Primero llemos los datos 
 
 ```{r}
-
+library(readr)
+vinos <- read_csv("datos/vinos.csv")
+View(vinos)
 
 ```
+
+Ahora que los tenemos podemos explorar la información al interior de las base
+
 
 
 
