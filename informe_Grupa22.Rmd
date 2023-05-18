@@ -24,7 +24,7 @@ La base de vinos contiene diez variables para 129.971 casos. La variables de est
 
 
 ## Exploración de los datos
-Primero llemos los datos 
+Primero vemos los datos 
 
 ```{r}
 library(readr)
@@ -39,12 +39,15 @@ Ahora que los tenemos podemos explorar la información al interior de las base, 
 library(dplyr)
 
 ```
-Miramos que cuantos caoss son de Argentina
+
+Miramos cuantos casos son de Argentina, tendremos que filtrar datos 
 
 ```{r}
-filter(vinos,pais==Argentina)
-```
 
+filter(vinos, pais == Argentina) 
+
+
+```
 
 
 ```{r}
