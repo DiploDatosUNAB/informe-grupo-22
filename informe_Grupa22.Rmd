@@ -44,7 +44,7 @@ Miramos cuantos casos son de Argentina, tendremos que filtrar datos
 
 ```{r}
 
-filter(vinos, pais == Argentina) 
+filter(vinos, "pais" == "Argentina")  
 
 
 ```
