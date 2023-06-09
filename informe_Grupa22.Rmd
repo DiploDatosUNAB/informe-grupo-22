@@ -138,31 +138,48 @@ vinos |>
   geom_line(aes(color = as.factor(puntos))) 
 ``` 
 
-Ahora para argentinos
 
 ```{r}
 vinos |>
    filter(puntos >= 95) |>
   ggplot(aes(precio, pais)) +
-  geom_point(aes(color = as.factor(puntos))) 
+  geom_line(aes(colour = puntos)) 
 
 ```
-
-
 
 ```{r}
 vinos |>
-  group_by(pais) |>
-    ggplot(aes(puntos, precio)) +
-  geom_line() 
+   filter(precio >= 500) |>
+  ggplot(aes(puntos, pais))+
+  geom_point() 
 ```
+
+
+
+```{r}
+pais2 <- filter(vinos, pais == c("Argentina","Portugal","Italia","Francia","Alemania","Estados Unidos")) 
+View(pais2)
+```
+```{r}
+pais2 |>
+  filter(puntos>=90)|>
+  ggplot(aes(pais, precio)) +
+  geom_point(aes(color = (puntos))) 
+```
+
+
 Sigo con argentinos por provincia
 
 ```{r}
-vinos_argentinos |>
-  ggplot(aes(provincia, puntos)) +
-  geom_point()
+vinos_argentinos <- filter(vinos, pais == "Argentina" ) 
+View(vinos_argentinos)
+
 ```
+
+```{r}
+
+```
+
 
 
 ```{r}
