@@ -108,20 +108,20 @@ En Argentina, el promedio de puntaje es 86,7 y está por debajo del promedio de 
 
 Hipótesis 1: Hay un relación directa entre puntaje y precio. Es decir que a mayor puntaje mayor precio. En consecuencia, los países con mayor puntaje tienen los vinos más caros de la base. 
 
-Hipótesis 2: La gran dispersión del precio de los vinos, es decir, la importante diferencia entre el mínimo y el máximo de los precios de los vinos, no se encuentra al interior de cada país sino que responde a diferencias entre los países.
+Hipótesis 2: La gran dispersión del precio de los vinos, es decir, la importante diferencia entre el mínimo y el máximo de los precios de los vinos, no se encuentra al interior de Argentina.
 
 #TP 2
 
 Corregimos algunas cosas, avanzamos con las tablas y gráficos
 
-Graficar la relación entre puntaje y precio:
+#Relación entre puntaje y precio en el total de países:
   
 ```{r}
 vinos |>
   ggplot(aes(precio, puntos)) +
   geom_point()
 ```
-  
+#Relación entre precio y puntos según país
 
 ```{r}
 vinos |>
@@ -129,7 +129,7 @@ vinos |>
   geom_line(aes(color = as.factor(puntos))) 
 ```
 
-
+#Relación puntos y precio según países que tengan vinos con puntaje mayor o igual a 95
 
 ```{r}
 vinos |>
@@ -146,7 +146,7 @@ vinos |>
   geom_line(aes(colour = puntos)) 
 
 ```
-
+#Relación puntos y precios según países con vinos de precios mayores o iguales a 500
 ```{r}
 vinos |>
    filter(precio >= 500) |>
@@ -154,7 +154,7 @@ vinos |>
   geom_point() 
 ```
 
-
+#Seleccionamos algunos casos de países
 
 ```{r}
 pais2 <- filter(vinos, pais == c("Argentina","Portugal","Italia","Francia","Alemania","Estados Unidos")) 
@@ -168,18 +168,7 @@ pais2 |>
 ```
 
 
-Sigo con argentinos por provincia
-
-```{r}
-vinos_argentinos <- filter(vinos, pais == "Argentina" ) 
-View(vinos_argentinos)
-
-```
-
-```{r}
-
-```
-
+#Vamos con el caso de Argentina para comprobar hipótesis 2
 
 
 ```{r}
@@ -187,5 +176,10 @@ vinos_argentinos |>
   ggplot(aes(puntos, precio)) +
   geom_point( aes(color = as.factor(provincia)))
 ```
+#Conclusiones
 
+Respecto a la Hipótesis 1 sobre si hay una relación directa entre puntaje y precio, se considera que la hiótesis es errónea. Si bien hay cierta tendencia en el gráfico que no diferencia países en dónde se ve la relación precio y puntos, se observa que hay una tendencia al aumento de precio partir de los 90 puntos, pero sin embargo, sigue habiendo vinos con menores precios en los puntajes altos. Un ejemplo, es el caso de Argentina, en dónde hay puntajes altos pero en relación al resto de los países con los mismos puntajes tiene precios bajos. 
 
+Para comprobar la hipótesis, primero seleccionamos los vinos con puntaje mayor o igual a 90 puntos. Luego filtramos algunos países que tenían mucha representación de vinos en los puntajes altos. Frente a ello, se observa que gran dispersión en los precios de los vinos y que no necesariamente los vinos más caros son los que han obtenido mayor puntaje en las reseñas. 
+
+Sobre la hipótesis 2 en la que argumentamos que la gran dispersión del precio de los vinos, es decir, la importante diferencia entre el mínimo y el máximo de los precios de los vinos, no se encuentra al interior de Argentina, podemos afirmar que es correcta. En ese sentido, puede verse en el último gráfico que hay sí hay mayor asociación entre puntaje y precio, diferenciándose de la dispersion de precios que hay en general si se ve lo que pasa en el total de países.
