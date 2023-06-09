@@ -10,7 +10,6 @@ knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2)
 library(dplyr)
 
-# Cargar los paquetes necesarios acá
 ```
 
 ```{r}
@@ -30,12 +29,6 @@ La base de vinos contiene diez variables y 129.971 casos. La misma contiene vari
 
 
 
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-# Cargar los paquetes necesarios acá
-```
-
 ```{r}
 # install.packages(readr)
 library(readr)
@@ -51,13 +44,6 @@ La base de vinos contiene diez variables para 129.971 casos. La variables de est
 
 ## Exploración de los datos
 Primero vemos los datos 
-
-```{r}
-library(readr)
-vinos <- read_csv("datos/vinos.csv")
-View(vinos)
-
-```
 
 Ahora que los tenemos podemos explorar la información al interior de las base, utilizamos dplyr
 
