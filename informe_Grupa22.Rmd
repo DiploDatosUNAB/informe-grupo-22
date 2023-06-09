@@ -7,6 +7,9 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(dplyr)
+
 # Cargar los paquetes necesarios acá
 ```
 
@@ -107,5 +110,65 @@ Hipótesis 1: Hay un relación directa entre puntaje y precio. Es decir que a ma
 
 Hipótesis 2: La gran dispersión del precio de los vinos, es decir, la importante diferencia entre el mínimo y el máximo de los precios de los vinos, no se encuentra al interior de cada país sino que responde a diferencias entre los países.
 
+#TP 2
+
+Corregimos algunas cosas, avanzamos con las tablas y gráficos
+
+Graficar la relación entre puntaje y precio:
+  
+```{r}
+vinos |>
+  ggplot(aes(precio, puntos)) +
+  geom_point()
+```
+  
+
+```{r}
+vinos |>
+  ggplot(aes(precio, pais)) +
+  geom_line(aes(color = as.factor(puntos))) 
+```
+
+
+
+```{r}
+vinos |>
+   filter(puntos >= 95) |>
+  ggplot(aes(precio, pais)) +
+  geom_line(aes(color = as.factor(puntos))) 
+``` 
+
+Ahora para argentinos
+
+```{r}
+vinos |>
+   filter(puntos >= 95) |>
+  ggplot(aes(precio, pais)) +
+  geom_point(aes(color = as.factor(puntos))) 
+
+```
+
+
+
+```{r}
+vinos |>
+  group_by(pais) |>
+    ggplot(aes(puntos, precio)) +
+  geom_line() 
+```
+Sigo con argentinos por provincia
+
+```{r}
+vinos_argentinos |>
+  ggplot(aes(provincia, puntos)) +
+  geom_point()
+```
+
+
+```{r}
+vinos_argentinos |>
+  ggplot(aes(puntos, precio)) +
+  geom_point( aes(color = as.factor(provincia)))
+```
 
 
