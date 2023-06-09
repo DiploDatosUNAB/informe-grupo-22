@@ -28,7 +28,6 @@ La base de vinos contiene diez variables y 129.971 casos. La misma contiene vari
 
 ```{r}
 
-
 ```
 
 
