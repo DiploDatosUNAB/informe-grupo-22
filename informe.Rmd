@@ -1,45 +1,140 @@
 ---
-title: "TP1_Grupo22"
+title: "TP_Grupo22"
 author: "Rosario Recalt y Pilar Medela"
 output: html_document
 ---
 
+#Grupo 22
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-# Cargar los paquetes necesarios acá
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
 ```
 
 ```{r}
-# install.packages(readr)
-library(readr)
-vinos <- readr::read_csv("https://raw.githubusercontent.com/cienciadedatos/datos-de-miercoles/master/datos/2019/2019-06-12/vinos.csv")
+vinos  <-  read_csv('datos/vinos.csv', show_col_types = FALSE)
 ```
 
+##Primero exploramos las variables de la base
+
+```{r}
+vinos_variables<- read_csv("datos/vinos.csv")
+str(vinos_variables)
+```
 
 ## Introducción
 
-La base de vinos contiene diez variables y 129.971 casos. La misma contiene variables nominales, numéricas y ordianales. En función de ello, refiere a datos sobre el país, provincia y región de origen, el nombre del vino, el puntaje asignado al vino, la variedad y el título de la reseña. Los datos fueron exraídos de la Revista WineEnthusiast (http://www.winemag.com/?s=&drink_type=wine)
-
-
+La base vinos.csv contiene diez variables para 129.971 casos. Las variables de esta base son en su mayoría nominales, pero también contiene dos variable numéricas (puntaje y precio). Dichas variables refieren a datos sobre el país, provincia y región de origen, el nombre, el puntaje asignado, la variedad y el título de la reseña sobre los vinos. Los datos fueron exraídos de la Revista WineEnthusiast (http://www.winemag.com/?s=&drink_type=wine).
 
 ## Exploración de los datos
 
 
 ```{r}
-
+vinos|>
+  summary(vinos, proporcion_media = mean(puntos))
 
 ```
-
-
 
 ```{r}
-# Cödigo de R acá 
-# Agregá más bloques según sea necesario
+vinos_argentina <-
+  filter(vinos, pais == "Argentina")
+summary(vinos_argentina, proporcion_media = mean(puntos))
+ 
 ```
 
+
+A partir de esto podemos observar algunos datos de la base. Tomando las variables numéricas, precio y puntos, observamos la media, el máximo y mínimo del total de vinos de los distintos países. Respecto a los precios del total de la base de vinos son: el máximo 3300, el mínimo 4, y el promedio es 35.36. En cuánto al puntaje, el mínimo es 80, el máximo 100 y el puntaje en promedio es de 88,45.
+
+A continuación, nos resultó interesante realizar las mismas observaciones de estos valores pero sólo de los vinos de Argentina. A partir de ello, el precio promedio del vino argentino es 24.51, cuyo valor está por debajo del precio promedio del total de vinos. Hay que considerar que el precio máximo de los vinos argentinos es de 230 y el mínimo de 4. Por otro lado, en cuanto al puntaje se observa menos diferencias. El mínimo coincide con el valor de la base total (80 puntos), pero el máximo es de 97, dando un valor promedio de 86,71 puntos.
 
 
 ## Hipótesis
 
+Hipótesis 1: Hay un relación directa entre el puntaje y el precio de los vinos. Es decir, que a mayor precio, mayor puntaje. En consecuencia, los vinos que tienen mayor puntaje deberían ser los vinos más caros de la base. 
 
+Hipótesis 2: La relación directa entre el puntaje y el precio de los vinos se da al interior de cada país.
+
+##Análisis de hipótesis y gráficos
+
+
+```{r}
+vinos |>
+  ggplot(aes(precio, puntos)) +
+  geom_point()
+```
+A partir de este gráfico dónde indagamos sobre la relación precio y puntaje de los vinos para verificar la hipótesis 1, podemos observar cierta relación, en la que a medida que aumentan los precios aumenta la cantidad de vinos con mayor puntaje. Sin embargo, esta relación no es lineal, ya que se observan vinos con puntajes altos y precios bajos. 
+
+Para avanzar, consideramos fundamental centrarnos en los casos más concentrados de la Base, según se observa en este gráfico, para esto realizaremos un filtro de los precios entre 35 y 750. 
+
+Igualmente antes de descartar algunos casos, nos parece interesante "poner lupa" en la relación precio y puntaje de los vinos con precios mayores a 500. Por lo tanto, realizaremos dicho gráfico para observar qué ocurre.
+
+
+```{r}
+vinos |>
+   filter(precio >= 500) |>
+ ggplot(aes(puntos, precio)) +
+  geom_point(aes(color = as.factor(pais))) 
+```
+En el gráfico generado con un filtro de preciós mas altos (mayores a 500) vemos que sólo son 9 países los que cumplen con esta condición del total de 44 países de la Base. Por otro lado, se observa también que el precio no necesariamente está asociado a mayor puntaje, principalmente en los valores más extremos. 
+
+Ahora si, para continuar analizando la base en relación a las hipotesis, realizaremos un filtro de los precios entre 35 y 750. 
+
+```{r}
+vinos |>
+   filter(precio >= 35 & precio <750) |>
+  ggplot(aes(precio, puntos)) +
+  geom_point(aes(colour = puntos))
+ 
+```
+
+A partir de este gráfico, donde reforzamos con color los puntajes podemos reafirmar que la hipótesis 1 es incorrecta, ya que a mayor precio hay más concentración de mejores puntajes pero hay puntajes altos con precio bajos tal cual señalamos anteriormente.
+
+Ahora, y adentrándonos a la segunda hipótesis, vamos a ver este mismo comportamiento al interior de algunos países que consideramos relevantes. Para esto primero vamos a comenzar con Argentina y luego seleccionaremos otros países. 
+
+
+```{r}
+vinos_argentina |>
+  ggplot(aes(precio, puntos)) +
+  geom_point(aes(colour = puntos))
+```
+En el gráfico sobre puntos y precio de los vinos de Argentina, la relación de a mayor precio mayor puntaje es más evidente que para el total de la base. Es decir, no existen vinos con los precios mínimos que tengan puntaje alto.
+
+Ahora observaremos lo que ocurre en otros países. Tomaremos los casos de Portugal, Alemania, Italia, Francia, España y Estados Unidos para indigar sobre el precio y puntaje de sus vinos.
+
+```{r}
+vinos |>
+  filter(pais %in% c("Portugal","Alemania"))  |>
+  filter(precio >= 35 & precio <750) |>
+  ggplot(aes(precio, puntos)) +
+  geom_point(aes(colour = pais))
+ 
+
+```
+```{r}
+vinos |>
+  filter(pais %in% c("Italia","Francia"))  |>
+  filter(precio >= 35 & precio <750) |>
+  ggplot(aes(precio, puntos)) +
+  geom_point(aes(colour = pais))
+ 
+
+```
+```{r}
+vinos %>%
+  filter(pais %in% c("España","Estados Unidos"))  |>
+  group_by(pais, precio) %>%
+  filter(precio >= 35 & precio <750) |>
+  ggplot(aes(precio, puntos)) +
+  geom_point(aes(colour = pais))
+```
+
+A través de los gráficos en dónde se observa el precio y el puntaje de los países seleccionados puede argumentarse que no es similar al gráfico sobre los vinos de Argentina, sino más bien, similar al comportamiento total de la base. Verificando que nuestras hipótesis iniciales no son correctas.
+
+##Conclusiones
+
+A partir del análisis realizado y los gráficos desarrollados podemos señalar algunos puntos. Respecto a la Hipótesis 1, sobre si hay una relación directa entre puntaje y precio, se considera que la hipótesis es errónea. Si bien hay cierta tendencia en el primer gráfico que no diferencia países de aumento de precios a mayor puntaje, pero, como ya observamos, hay vinos con precios bajos a pesar de que sus puntajes son altos. 
+
+Sobre la hipótesis 2, a partir del análisis del comportamiento del precio y puntaje de los vinos en ciertos países como España, Estados Unidos, Francia, Italia, Portugal, Alemania y Argentina, puede señalarse que esto sólo ocurre en Argentina. 
